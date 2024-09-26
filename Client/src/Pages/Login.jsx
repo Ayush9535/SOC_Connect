@@ -36,7 +36,17 @@ const Login = () => {
         localStorage.setItem('token', response.data.token);
 
         setTimeout(() => {
-          navigate('/');
+          if(response.data.user.role === 'student') {
+            navigate('/studentdash');
+          } else if(response.data.user.role === 'faculty') {
+            navigate('/facultydash');
+          }
+          else if (response.data.user.role === 'admin') {
+            navigate('/admindash');
+          }
+          else if (response.data.user.role === 'alumni') {
+            navigate('/alumnidash');
+          }
         }, 2000);
       }
     } catch (err) {

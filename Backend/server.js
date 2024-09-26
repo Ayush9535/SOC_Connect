@@ -40,7 +40,7 @@ app.post("/login", async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password)
         if (isMatch) {
             const token = jwt.sign({ email: user.email, role: user.role }, process.env.SECRETKEY)
-            res.json({ message: "Login successful", token })
+            res.json({ message: "Login successful", token, user })
         } else {
             res.status(401).send("Wrong password")
         }
@@ -52,7 +52,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/register", async (req, res) => {
     console.log(req.body)
-    let { email, password } = req.body
+    let { email, password ,role} = req.body
     let user = await userModel.findOne({ email: email })
     if (user) {
         console.log("then")
@@ -63,7 +63,7 @@ app.post("/register", async (req, res) => {
         await userModel.create({
             email: email,
             password: hashedPassword, 
-            role: "student"
+            role: role
         })
         res.send("Registration successful")
     } catch (error) {
