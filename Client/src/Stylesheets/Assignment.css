@@ -1,0 +1,73 @@
+.Assignment_Card{
+    width: 1000px;
+    height: 200px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 2px 2px 2px 2px black;
+
+}
+.left_side{
+    width: 40%;
+}
+
+.title{
+    font-size: 40px;
+    font-weight: 600;
+}
+.desc{
+    color: rgb(76, 76, 76);
+    font-weight: 100;   
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.faculty_name{
+    color: #6C48C5;
+    font-weight: 700;
+}
+.subject_name{
+    font-weight: 600;
+}
+.submisson_date_only,.status_update,.deadline_date{
+    color: #6C48C5;
+    font-weight: 700;   
+}
+.submisson_date_text,.status_text,.deadline_text{
+    color: black;
+    font-size: 20px;
+    font-weight:700;
+    font-size: 20px;
+}
+.submisson_date,.status,.deadline{
+    
+    margin: 0px 20px;
+}
+.right_upper_side{
+    display: flex;
+    margin: 50px 0px ;
+    
+}
+.right_side{
+    display: flex;
+
+
+    
+}
+
+.button-mark_as_done{
+    position: absolute;
+    bottom:20px ;
+    background-color: #6C48C5;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    right: 20px;
+}
+.button-mark_as_done:hover{
+    cursor: pointer;
+    background-color: #582fc0;
+
+}
