@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import StudentSideBar from '../Components/StudentSideBar';
 import Student_Data_View from '../Components/Student_Overview';
 import Student_intro from '../Components/Student_intro';
-// import "../Stylesheets/StudentDashboard.css";
+import "../Stylesheets/StudentDashbord.css";
 
 const StudentDashboard = () => {
   const [activeTab, setActiveTab] = useState('studenthome');

@@ -3,10 +3,10 @@
     height: 200px;
     margin-left: 13%;
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.6);
-    background-color: white;
+    background-color: #6c48c5;
     border-radius: 20px;
     display: flex;
-
+    color: white;
 
 }
 .left_side{
@@ -21,14 +21,9 @@
     font-size: 40px ;
 }
 .student_name{
-    color:  #6c48c5;
+    color:  white;
     margin: 0px 2px;
 }
 .date{
     font-weight: 700;
-}
-
-
-.nav-item{
-    color: black
 }
