@@ -10,6 +10,7 @@ const cors = require("cors")
 const { AssignmentModel } = require("./Model/Assignments.js");
 const {FacultyModel} = require("./Model/Faculties.js");
 const {AdminModel} = require("./Model/Admin.js");
+const {Holiday} = require("./Model/Holiday.js")
 
 const app = express()
 app.use(cors())
@@ -37,7 +38,10 @@ app.post("/login", async (req, res) => {
         userModel = StudentModel;
     } else if (userRole == 'faculty') {
         userModel = FacultyModel;
-    } else {
+    } 
+    else if(userRole == 'admin'){
+        userModel = AdminModel;
+    }else {
         return res.status(400).send("Invalid user role specified");
     }
 
