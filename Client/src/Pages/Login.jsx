@@ -34,7 +34,6 @@ const Login = () => {
           hideProgressBar: true,
           theme: "colored"
         });
-
         localStorage.setItem('token', response.data.token);
         console.log(response.data.user.role);
         setTimeout(() => {
