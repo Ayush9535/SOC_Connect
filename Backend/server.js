@@ -152,8 +152,15 @@ app.put('/assignments/submit/:assignmentId', async (req, res) => {
         res.status(500).json({ message: 'Error submitting assignment', error });
     }
 });
-
-
+app.get('/getuser',async(req,res)=>{
+    try {
+        const data = await userModel.find({})
+        res.json(data)
+    } catch (error) {
+        console.error("Error fetching user details",error)
+        res.status(500).json({ error: "Internal server error" })
+    }
+})
 
 app.listen(3000 , ()=>{
     console.log("Server is running on port 3000")
