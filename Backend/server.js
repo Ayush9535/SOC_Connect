@@ -9,6 +9,7 @@ const crypto = require("crypto")
 const cors = require("cors")
 const { AssignmentModel } = require("./Model/Assignments.js");
 const {FacultyModel} = require("./Model/Faculties.js");
+const {AdminModel} = require("./Model/Admin.js");
 
 const app = express()
 app.use(cors())
@@ -93,12 +94,10 @@ app.post("/register", async (req, res) => {
                 role: role
             });
         }else if (role === 'admin') {
-            await FacultyModel.create({
+            await AdminModel.create({
                 name: name,
                 email: email,
                 password: hashedPassword,
-                personalInfo: personalInfo,
-                academicInfo: academicInfo,
                 role: role
             });
         } else {
@@ -111,8 +110,6 @@ app.post("/register", async (req, res) => {
         res.status(500).send("Error during registration");
     }
 })
-
-
 
 app.post("/forgotpassword" , async (req , res)=>{
     let email = req.body.email
