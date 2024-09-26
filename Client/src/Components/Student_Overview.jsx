@@ -25,7 +25,7 @@ const Student_Data_View = (props) => {
           <div className="overview_boxes achievements">
             <FaCalendarAlt/>
           </div>
-          <div className="achievement_text">Calendar</div>
+          <div className="achievement_text">Holidays</div>
         </div>
         <div className="student_performance">
           <div className="overview_boxes performance">
