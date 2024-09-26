@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt")
 const { transporter } = require("./Utils/MailTransporter.js")
 const crypto = require("crypto")
 const cors = require("cors")
+const { AssignmentModel } = require("./Model/Assignments.js");
 
 const app = express()
 app.use(cors())
@@ -121,6 +122,36 @@ app.put("/resetpass", async (req, res) => {
     }
 })
   
+app.post('/assignments/create', async (req, res) => {
+    const { title, description, subjectId, facultyId, studentId, deadline } = req.body;
+    try {
+        const newAssignment = await AssignmentModel.create({
+            title,
+            description,
+            subjectId,
+            facultyId,
+            studentId,
+            deadline
+        });
+        res.status(201).json(newAssignment);
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating assignment', error });
+    }
+});
+
+app.put('/assignments/submit/:assignmentId', async (req, res) => {
+    const assignmentId = req.params.assignmentId;
+    try {
+        const updatedAssignment = await AssignmentModel.findByIdAndUpdate(
+            assignmentId,
+            { status: 'Submitted', submissionDate: new Date() },
+            { new: true }
+        );
+        res.status(200).json(updatedAssignment);
+    } catch (error) {
+        res.status(500).json({ message: 'Error submitting assignment', error });
+    }
+});
 
 
 

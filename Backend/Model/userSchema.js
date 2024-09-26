@@ -1,51 +1,41 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-    role: { type: String, enum: ['student', 'faculty', 'admin', 'alumni'] },
-    assignments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'assignments' }],
-    attendance: { type: Number, default: 0 },
-    feedback: [{ type: String }],
-
+const studentSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    
+    // Extended Personal Information
     personalInfo: {
-        phone: String,
-        address: String,
-        dateOfBirth: Date,
+        phone: { type: String, required: true },
+        address: { type: String, required: true },
+        dateOfBirth: { type: Date, required: true },
+        fathersName: { type: String, required: true },
+        mothersName: { type: String, required: true },
+        aadharNumber: { type: String, required: true, unique: true },
+        emergencyContact: { type: String, required: true },
+        bloodGroup: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], required: true },
     },
 
-    department: { type: mongoose.Schema.Types.ObjectId, ref: 'departments' },
-
-    studentDetails: {
-        academicInfo: {
-            courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }],
-            gpa: Number
-        }
+    // Academic Information
+    academicInfo: {
+        department: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true }, // Link to department
+        courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }], // Array of course references
+        gpa: { type: Number, default: 0.0 }
     },
 
-    alumniDetails: {
-        engagementWithCollege: String,
-        networks: [{ name: String, contact: String }],
-        professionalOpportunities: [{ jobTitle: String, company: String }],
-        socialMediaLinks: [{ platform: String, link: String }]
-    },
+    // Assignments
+    assignments: [{
+        assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' }, // Reference to the Assignment
+        status: { type: String, enum: ['Submitted', 'Pending'], default: 'Pending' },
+        grade: { type: String, default: null }
+    }],
 
-    facultyDetails: {        
-        subjects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }]
-    },
-
-    adminDetails: {
-        departmentDetails: { type: mongoose.Schema.Types.ObjectId, ref: 'departments' },
-        studentOverview: [{
-            student: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-            performance: String
-        }]
-    },
+    // Feedback
+    feedback: [{ type: String }] // Array of feedback messages
 });
 
-const userModel = mongoose.model("users", userSchema);
-
+const StudentModel = mongoose.model("Student", studentSchema);
 module.exports = {
-    userModel
+    StudentModel
 };
