@@ -7,7 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import OTPModal from './OTPModal';
 
+
 const Login = () => {
+  const [userRole, setUserRole] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
@@ -21,7 +23,7 @@ const Login = () => {
     try {
       note = toast.loading("Please Wait...", { position: "top-center" });
 
-      const response = await axios.post('http://localhost:3000/login', { email, password });
+      const response = await axios.post('http://localhost:3000/login', { email, password, userRole });
 
       if (response.data.message === 'Login successful') {
         toast.update(note, {
@@ -34,7 +36,7 @@ const Login = () => {
         });
 
         localStorage.setItem('token', response.data.token);
-
+        console.log(response.data.user.role);
         setTimeout(() => {
           if(response.data.user.role === 'student') {
             navigate('/studentdash');
@@ -168,6 +170,22 @@ const Login = () => {
                     required
                   />
                 </div>
+              </div>
+              <div className="login_as">
+                <div className="login_as_text">Register Yourself as</div>
+                <select
+                  name="user_role"
+                  id="user_role"
+                  aria-label="Register as"
+                  value={userRole}
+                  onChange={(e) => setUserRole(e.target.value)}
+                >
+                  <option value="">Select Role</option>
+                  <option value="student">Student</option>
+                  <option value="alumni">Alumni</option>
+                  <option value="admin">Admin</option>
+                  <option value="faculty">Faculty</option>
+                </select>
               </div>
 
               <div className="login_button">

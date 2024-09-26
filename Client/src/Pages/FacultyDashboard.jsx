@@ -3,6 +3,7 @@ import FacultySideBar from '../Components/FacultySideBar';
 import Student_Data_View from '../Components/Student_Overview';
 import Student_intro from '../Components/Student_intro';
 import FacultyPersonalDetails from '../Components/FacultyPersonalDetails';
+import "../Stylesheets/FacultyDasboard.css";
 
 const FacultyDashboard = () => {
   const [activeTab, setActiveTab] = useState('facultyhome'); // Default active tab

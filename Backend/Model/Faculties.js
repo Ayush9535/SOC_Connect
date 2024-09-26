@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const facultySchema = new mongoose.Schema({
-        "_id": {
-          "type": "ObjectId",
-          "description": "Unique identifier for each faculty member"
-        },
         "name": {
           "type": "String",
           "description": "Full name of the faculty member"
@@ -17,6 +13,11 @@ const facultySchema = new mongoose.Schema({
         "password": {
           "type": "String",
           "description": "Hashed password for authentication"
+        },
+        "role": {
+          "type": "String",
+          "description": "Role of the faculty member",
+          "default": "faculty"
         },
         "personalInfo": {
           "type": "Object",

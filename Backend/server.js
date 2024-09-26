@@ -35,7 +35,16 @@ app.get("/users" , async (req,res)=>{
 })
 
 app.post("/login", async (req, res) => {
-    let { email, password } = req.body
+    let { email, password, userRole } = req.body
+
+    if (userRole === 'student') {
+        userModel = StudentModel;
+    } else if (userRole === 'faculty') {
+        userModel = FacultyModel;
+    } else {
+        return res.status(400).send("Invalid user role specified");
+    }
+
     let user = await userModel.findOne({ email: email })
     
     if (user) {
@@ -190,15 +199,34 @@ app.get('/getstudents', async (req, res) => {
     }
 });
 
-app.get('/getfaculties' , async (req,res)=>{
+app.get('/getfaculties/:email' , async (req,res)=>{
+    let email = req.params.email
     try{
-        const faculties = await FacultyModel.find({})
+        const faculties = await FacultyModel.findOne({email: email})
         res.json(faculties)
     }catch(err){
-        console.error('Error fetching faculties:', error);
+        console.error('Error fetching faculties:', err);
         res.status(500).json({ message: 'Error fetching faculties' });
     }
 })
+
+app.put('/faculty/:id', async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;
+
+    try {
+        const updatedFaculty = await FacultyModel.findByIdAndUpdate(id, updatedData, { new: true, runValidators: true });
+
+        if (!updatedFaculty) {
+            return res.status(404).json({ message: 'Faculty not found' });
+        }
+
+        res.status(200).json({ message: 'Faculty updated successfully', data: updatedFaculty });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
 
 app.listen(3000 , ()=>{
     console.log("Server is running on port 3000")
