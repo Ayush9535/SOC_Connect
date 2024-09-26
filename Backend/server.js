@@ -2,12 +2,13 @@ require("dotenv").config()
 const express = require("express")
 const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose")
-const {userModel} = require("./Model/userSchema")
+const {StudentModel} = require("./Model/userSchema")
 const bcrypt = require("bcrypt")
 const { transporter } = require("./Utils/MailTransporter.js")
 const crypto = require("crypto")
 const cors = require("cors")
 const { AssignmentModel } = require("./Model/Assignments.js");
+const {FacultyModel} = require("./Model/Faculties.js");
 
 const app = express()
 app.use(cors())
@@ -52,24 +53,53 @@ app.post("/login", async (req, res) => {
 
 
 app.post("/register", async (req, res) => {
-    console.log(req.body)
-    let { email, password ,role} = req.body
-    let user = await userModel.findOne({ email: email })
-    if (user) {
-        console.log("then")
-        return res.status(400).send("User already exists")
+    console.log(req.body);
+    let { email, password, role, name, personalInfo, academicInfo } = req.body;
+
+    // Check if user already exists in either Student or Faculty collection based on role
+    let user;
+    if (role === 'student') {
+        user = await StudentModel.findOne({ email: email });
+    } else if (role === 'faculty') {
+        user = await FacultyModel.findOne({ email: email });
     }
+
+    if (user) {
+        console.log("User already exists");
+        return res.status(400).send("User already exists");
+    }
+
     try {
-        const hashedPassword = await bcrypt.hash(password, 10)
-        await userModel.create({
-            email: email,
-            password: hashedPassword, 
-            role: role
-        })
-        res.send("Registration successful")
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        if (role === 'student') {
+            // Register as Student
+            await StudentModel.create({
+                name: name,
+                email: email,
+                password: hashedPassword,
+                personalInfo: personalInfo,
+                academicInfo: academicInfo,
+                role: role
+            });
+        } else if (role === 'faculty') {
+            // Register as Faculty
+            await FacultyModel.create({
+                name: name,
+                email: email,
+                password: hashedPassword,
+                personalInfo: personalInfo,
+                academicInfo: academicInfo,
+                role: role
+            });
+        } else {
+            return res.status(400).send("Invalid role specified");
+        }
+
+        res.status(201).send("Registration successful");
     } catch (error) {
-        console.log(error)
-        res.status(500).send("Error during registration")
+        console.log(error);
+        res.status(500).send("Error during registration");
     }
 })
 
@@ -152,13 +182,23 @@ app.put('/assignments/submit/:assignmentId', async (req, res) => {
         res.status(500).json({ message: 'Error submitting assignment', error });
     }
 });
-app.get('/getuser',async(req,res)=>{
+app.get('/getstudents', async (req, res) => {
     try {
-        const data = await userModel.find({})
-        res.json(data)
+        const students = await StudentModel.find({})
+        res.json(students);
     } catch (error) {
-        console.error("Error fetching user details",error)
-        res.status(500).json({ error: "Internal server error" })
+        console.error('Error fetching students:', error);
+        res.status(500).json({ message: 'Error fetching students' });
+    }
+});
+
+app.get('/getfaculties' , async (req,res)=>{
+    try{
+        const faculties = await FacultyModel.find({})
+        res.json(faculties)
+    }catch(err){
+        console.error('Error fetching faculties:', error);
+        res.status(500).json({ message: 'Error fetching faculties' });
     }
 })
 
