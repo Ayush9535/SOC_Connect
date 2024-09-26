@@ -13,6 +13,7 @@ const studentSchema = new mongoose.Schema({
         fathersName: { type: String },
         mothersName: { type: String },
         aadharNumber: { type: String},
+
         emergencyContact: { type: String },
         bloodGroup: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] },
     },

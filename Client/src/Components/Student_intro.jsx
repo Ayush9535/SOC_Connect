@@ -3,22 +3,7 @@ import axios from "axios";
 import "../Stylesheets/Student_info.css";
 
 const Student_intro = (props) => {
-  const [data,setData] = useState([])
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await axios.get('http://localhost:3000/getuser');
-        setData(response.data);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchUser();
-  }, []);
-  console.log(data)
   return (
     <>
       <div className="content">
