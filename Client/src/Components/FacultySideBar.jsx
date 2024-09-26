@@ -10,24 +10,21 @@ const FacultySideBar = () => {
                 <div className="logo">
                     <img src='https://res.cloudinary.com/dzf8ewam7/image/upload/v1727342563/SOC-Connect/rl7tdycgpqeizptrpgrj.png' alt=""/>
                 </div>
-                <Link to="/" className="nav-item">
-                    <i className="fas fa-home"></i> Home
+                <Link to="/facultyhome" className="nav-item">
+                    Home
                 </Link>
-                <Link to="/profile" className="nav-item">
-                    <i className="fas fa-user"></i> Profile
+                <Link to="/facultypersonaldetails" className="nav-item">
+                    <i className="fas fa-user"></i> Personal Details
                 </Link>
-                <Link to="/newpost" className="nav-item">
-                    <i className="fas fa-plus-square"></i> New Post
+                <Link to="/coursestaught" className="nav-item">
+                    Courses Taught
                 </Link>
-                <Link to="/chat" className="nav-item">
-                    <i className="fas fa-envelope"></i> Messages
+                <Link to="/academicinformation" className="nav-item">
+                    Academic Information
                 </Link>
-                <Link to="/notify" className="nav-item">
-                    <i className="fas fa-bell"></i> Notifications
+                <Link to="/mystudents" className="nav-item">
+                    My Students
                 </Link>
-                <a href="/events" className="nav-item">
-                    <i className="fas fa-calendar-alt"></i> Events
-                </a>
             </nav>
             <div className="logout">
                 <button className="logout-button">

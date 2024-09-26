@@ -1,0 +1,34 @@
+{
+    "user":[
+        {
+            "name":"Bhagirath",
+            "email":"bhagirath961778@gmail.com",
+            "password":"1234567890",
+            "role":"student",
+            "assignments":[],
+            "attendance":"00",
+            "feedbacks":[],
+            "personalinfo":[
+                {
+                    "phoneno":"1234567890",
+                    "address":"xyz",
+                    "dob":"06/02/2006"
+                }
+            ],
+            "department":"CSE",
+            "academicinfo":[
+                {
+                    "courses":[],
+                    "CGPA":[]
+                }
+            ],
+            "alumnidetails":"",
+            "facultydetails":[
+                {
+                    "coursestaught":[],
+                    "activecourses":[]
+                }
+            ]
+        }
+    ]
+}

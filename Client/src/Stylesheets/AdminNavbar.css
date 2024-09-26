@@ -2,75 +2,75 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-.sidebar {
+    background-color: #f5f5f5; /* Light background for better contrast */
+  }
+  
+  .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 13%;
-    background-color: white;
+    background-color: #6C48C5;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 2;
-}
-
-.sidebar-content {
+  }
+  
+  .sidebar-content {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding-top: 20px;
-}
-
-.nav {
+    padding: 20px;
+    color: white; /* Text color for sidebar content */
+  }
+  
+  .nav {
     flex-grow: 1;
-    padding: 0 20px;
-}
-
-.nav-item {
+  }
+  
+  .nav-item {
     display: flex;
     align-items: center;
     padding: 10px;
     text-decoration: none;
-    color: black;
     border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.nav-item:hover {
+    transition: background-color 0.3s;
+  }
+  
+  .nav-item:hover {
     background-color: #f57c20; /* Example hover color */
-    color: white;
-}
-
-.nav-item i {
-    margin-right: 10px;
-}
-
-.logout {
+  }
+  
+  .nav-text {
+    margin-left: 10px; /* Add spacing between icon and text */
+  }
+  
+  .logout {
     padding: 20px;
-}
-
-.logout-button {
+  }
+  
+  .logout-button {
     display: flex;
     align-items: center;
     padding: 10px;
     width: 100%;
     border: none;
     background-color: transparent;
-    color: black;
+    color: white;
     cursor: pointer;
     border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.logout-button:hover {
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
     background-color: #f57c20; /* Example hover color */
-    color: white;
-}
-.logo img{
+  }
+  
+  .logo img {
     width: 108px;
     height: 108px;
-}
-.logo{
+  }
+  
+  .logo {
     margin: 20px 0px;
-}
+  }
