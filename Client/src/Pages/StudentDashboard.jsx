@@ -4,6 +4,7 @@ import Student_Data_View from '../Components/Student_Overview'
 import Student_intro from '../Components/Student_intro'
 import StudentPersonalDetails from '../Components/StudentPersonalDetails'
 import { useState } from 'react'
+import ViewAssignments from '../Components/ViewAssignments'
 import '../Stylesheets/StudentDashbord.css'
 
 function StudentDashboard() {
@@ -28,6 +29,8 @@ function StudentDashboard() {
         return <AcademicInformationComponent />; 
       case 'myStudents':
         return <MyStudentsComponent />; 
+      case 'assignments':
+        return <ViewAssignments />; 
       default:
         return <Student_intro />;
     }

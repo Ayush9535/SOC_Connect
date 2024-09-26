@@ -33,6 +33,9 @@ const FacultySideBar = ({ onTabChange }) => {
           <div className="nav-item" onClick={() => onTabChange('myStudents')}>
             My Students
           </div>
+          <div className="nav-item" onClick={() => onTabChange('createassignment')}>
+            Create Assignment
+          </div>
           <div className="nav-item" onClick={()=>LogOut()}>
             Logout
           </div>

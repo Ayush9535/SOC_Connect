@@ -31,6 +31,9 @@ const StudentSideBar = ({ onTabChange }) => {
           <div className="nav-item" onClick={() => onTabChange('feedbacks')}>
             Feedbacks
           </div>
+          <div className="nav-item" onClick={() => onTabChange('assignments')}>
+            View Assignments
+          </div>
           <div className="nav-item" onClick={()=>LogOut()}>
             Logout
           </div>

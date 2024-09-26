@@ -235,6 +235,62 @@ app.put('/faculty/:id', async (req, res) => {
     }
 });
 
+
+app.post("/assignment/:facultyId" , async (req,res)=>{
+    let facultyId = req.params.facultyId
+    let {title , description , subjectId , deadline} = req.body
+
+    let user = await FacultyModel.find({email: facultyId})
+    console.log(user , title , description , subjectId , deadline)
+    try{
+        const assignment = await AssignmentModel.create({
+            title,
+            description,
+            subjectId,
+            facultyId: user[0]._id,
+            deadline
+        })
+        res.status(201).json(assignment)
+    }catch(err){
+        res.status(500).json({ message: 'Error creating assignment', error: err });
+    }
+})
+
+app.get("/assignments", async (req, res) => {
+    try {
+        const assignments = await AssignmentModel.find().populate('facultyId');
+        
+        res.status(200).json(assignments);
+    } catch (err) {
+        console.error("Error fetching assignments:", err);
+        
+        res.status(500).json({ message: "Error fetching assignments", error: err });
+    }
+});
+
+
+app.put("/assignments/:id", async (req, res) => {
+    try {
+        const assignmentId = req.params.id;
+        const { status } = req.body;
+
+        const updatedAssignment = await AssignmentModel.findByIdAndUpdate(
+            assignmentId,
+            { status },
+            { new: true }
+        );
+
+        res.status(200).json(updatedAssignment);
+    } catch (err) {
+        console.error("Error updating assignment status:", err);
+        res.status(500).json({ message: "Error updating assignment status", error: err });
+    }
+});
+
+
+
+
+
 app.listen(3000 , ()=>{
     console.log("Server is running on port 3000")
 })

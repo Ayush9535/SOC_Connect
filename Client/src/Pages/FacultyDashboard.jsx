@@ -6,6 +6,7 @@ import FacultyPersonalDetails from '../Components/FacultyPersonalDetails';
 import "../Stylesheets/FacultyDasboard.css";
 import Faculty_View from '../Components/FacultyOverview';
 import Faculty_Intro from '../Components/FacultyIntro';
+import CreateAssignment from '../Components/CreateAssignment';
 
 const FacultyDashboard = () => {
   const [activeTab, setActiveTab] = useState('facultyhome');
@@ -32,6 +33,8 @@ const FacultyDashboard = () => {
         return <AcademicInformationComponent />; 
       case 'myStudents':
         return <MyStudentsComponent />; 
+      case 'createassignment':
+        return <CreateAssignment />; 
       default:
         return <Student_intro />;
     }

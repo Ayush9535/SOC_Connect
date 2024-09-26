@@ -25,7 +25,7 @@ const studentSchema = new mongoose.Schema({
     },
 
     assignments: [{
-        assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' }, // Reference to the Assignment
+        assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' },
         status: { type: String, enum: ['Submitted', 'Pending'], default: 'Pending' },
         grade: { type: String, default: null }
     }],
