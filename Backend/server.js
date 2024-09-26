@@ -92,6 +92,15 @@ app.post("/register", async (req, res) => {
                 academicInfo: academicInfo,
                 role: role
             });
+        }else if (role === 'admin') {
+            await FacultyModel.create({
+                name: name,
+                email: email,
+                password: hashedPassword,
+                personalInfo: personalInfo,
+                academicInfo: academicInfo,
+                role: role
+            });
         } else {
             return res.status(400).send("Invalid role specified");
         }
