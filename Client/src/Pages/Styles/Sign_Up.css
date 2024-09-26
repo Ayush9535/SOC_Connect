@@ -10,12 +10,11 @@ body {
     width: 100%;
     height: 100vh;
     align-items: center;
-    background-color: #fff5cd;
+    background-color: #6C48C5;
 }
 .container {
     font-family: 'Poppins';
-    width: 1200px;
-    height: 600px;
+    width: 900px;
     display: flex;
     background-color: white;
     border-radius: 40px;
@@ -24,7 +23,6 @@ body {
 }
 .left_side {
     width: 50%; 
-    background-color: #B7e0ff;
 }
 .left_side_content {
     display: flex;
@@ -36,22 +34,21 @@ body {
     font-size: 40px;
 }
 .login_form {
-    width: 600px;
-    height: 600px;
+    width: 100%;
+    height: 100%;
 }
 .login_header {
-    background-color: #ffa16a;
+    text-align: center;
     color: black;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 40px;
+    width: 80%;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.logo img {
-    width: 300px;
-    height: 300px;
+.left_side_content img {
+    width: 20vw !important;
+    height: 20vw!important;
+    margin: 50px;
 }
 .inputs {
     margin: 20px 20px;
@@ -60,14 +57,22 @@ body {
     margin-bottom: 20px; /* Add some space between input fields */
 }
 .input_email_text, .input_password_text {
-    font-size: 20px; /* Adjust as needed */
+    font-size:15px; /* Adjust as needed */
 }
 .inputs input {
-    width: 90%;
-    height: 50px;
-    border-radius: 10px;
-    padding-left: 20px; /* Add padding for the placeholder text */
+    width: 70%;
+    /* height: 50px; */
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 2px solid black;
+    outline: none;
+    font-weight: bold;
 }
+
+.login_button{
+    width: 100%;
+}
+
 .login_button a {
     margin: 20px 0px ;
     background-color: black;
@@ -84,12 +89,12 @@ margin: 20px 0; /* Add space above and below */
 }
 
 .login_as select {
-width: 50%; 
-height: 50px; 
-border-radius: 10px; 
+width: 150px; 
+height: 40px; 
+border-radius: 5px; 
 padding-left: 20px; 
 border: 1px solid gray; 
-font-size: 20px;
+font-size: 15px;
 background-color: white; 
 appearance: none; 
 background-image: url('data:image/png;base64,...'); 
