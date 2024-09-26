@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import StudentSideBar from '../Components/StudentSideBar';
-import Student_Data_View from '../Components/Student_Overview';
-import Student_intro from '../Components/Student_intro';
-import "../Stylesheets/StudentDashbord.css";
+import React from 'react'
+import StudentSideBar from '../Components/StudentSideBar'
+import Student_Data_View from '../Components/Student_Overview'
+import Student_intro from '../Components/Student_intro'
+import StudentPersonalDetails from '../Components/StudentPersonalDetails'
+import { useState } from 'react'
 
-const StudentDashboard = () => {
-  const [activeTab, setActiveTab] = useState('studenthome');
-
+function StudentDashboard() {
+  const [activeTab, setActiveTab] = useState('studenthome')
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-  };
-
+  }
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'studenthome':
         return (
           <div>
-            <Student_intro /> 
-            <Student_Data_View rank_of_student='1' /> 
+            <Student_intro /> {/* Display student intro */}
+            <Student_Data_View rank_of_student='1' />  {/* Display student overview */}
           </div>
         );
-      case 'personalDetails':
-        return <PersonalDetails />; 
+      case 'studentpersonaldetails':
+        return <StudentPersonalDetails />; // Display personal details
+      case 'coursesTaught':
+        return <CoursesTaughtComponent />; // Replace with the actual component for courses taught
       case 'academicInformation':
-        return <AcademicInformation />; 
-      case 'feedbacks':
-        return <Feedbacks />; 
+        return <AcademicInformationComponent />; // Replace with the actual component for academic information
+      case 'myStudents':
+        return <MyStudentsComponent />; // Replace with the actual component for my students
       default:
-        return <Student_intro />;
+        return <Student_intro />; // Default to student intro if no match
     }
   };
-
   return (
     <div>
       <div className="sidebar">
-        <StudentSideBar onTabChange={handleTabChange} />
+        <StudentSideBar onTabChange = {handleTabChange}/>
       </div>
       <div className="student-cntr">
         {renderActiveTab()}

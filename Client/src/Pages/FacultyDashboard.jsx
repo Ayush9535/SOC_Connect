@@ -4,6 +4,8 @@ import Student_Data_View from '../Components/Student_Overview';
 import Student_intro from '../Components/Student_intro';
 import FacultyPersonalDetails from '../Components/FacultyPersonalDetails';
 import "../Stylesheets/FacultyDasboard.css";
+import Faculty_View from '../Components/FacultyOverview';
+import Faculty_Intro from '../Components/FacultyIntro';
 
 const FacultyDashboard = () => {
   const [activeTab, setActiveTab] = useState('facultyhome');
@@ -17,8 +19,9 @@ const FacultyDashboard = () => {
       case 'facultyhome':
         return (
           <div>
-            <Student_intro /> 
-            <Student_Data_View rank_of_student='1' /> 
+             {/* Display student intro */}
+             <Faculty_Intro/>
+            <Faculty_View rank_of_student='1' />  {/* Display student overview */}
           </div>
         );
       case 'personalDetails':
