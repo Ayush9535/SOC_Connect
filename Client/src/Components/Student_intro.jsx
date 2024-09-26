@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../Stylesheets/Student_info.css";
 
 const Student_intro = (props) => {

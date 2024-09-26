@@ -8,6 +8,7 @@ const { transporter } = require("./Utils/MailTransporter.js")
 const crypto = require("crypto")
 const cors = require("cors")
 const { AssignmentModel } = require("./Model/Assignments.js");
+const {FacultyModel} = require("./Model/Faculties.js");
 
 const app = express()
 app.use(cors())
@@ -181,13 +182,23 @@ app.put('/assignments/submit/:assignmentId', async (req, res) => {
         res.status(500).json({ message: 'Error submitting assignment', error });
     }
 });
-app.get('/getuser',async(req,res)=>{
+app.get('/getstudents', async (req, res) => {
     try {
-        const data = await userModel.find({})
-        res.json(data)
+        const students = await StudentModel.find({})
+        res.json(students);
     } catch (error) {
-        console.error("Error fetching user details",error)
-        res.status(500).json({ error: "Internal server error" })
+        console.error('Error fetching students:', error);
+        res.status(500).json({ message: 'Error fetching students' });
+    }
+});
+
+app.get('/getfaculties' , async (req,res)=>{
+    try{
+        const faculties = await FacultyModel.find({})
+        res.json(faculties)
+    }catch(err){
+        console.error('Error fetching faculties:', error);
+        res.status(500).json({ message: 'Error fetching faculties' });
     }
 })
 
