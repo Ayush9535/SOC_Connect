@@ -77,9 +77,6 @@ const SignUp = () => {
           <div className="logo">
             <img src={mit_logo} alt="MIT Logo" style={{borderRadius:"50%"}}/>
           </div>
-          <div className="mit_text">
-            MIT School Of Computing
-          </div>
         </div>
       </div>
       <div className="right_side">
@@ -148,10 +145,10 @@ const SignUp = () => {
                 </select>
               </div>
               <div className="login_button">
-                <button type="submit">Sign Up</button>
+              <button class="button-3" role="button" type='submit'>Login</button>
               </div>
 
-              <p className='navi'>Already have an account ? <span onClick={()=>navigate("/login")}>GO to Login</span></p>
+              <p className='navi'>Already have an account ? <span onClick={()=>navigate("/")}>GO to Login</span></p>
 
             </div>
           </form>
