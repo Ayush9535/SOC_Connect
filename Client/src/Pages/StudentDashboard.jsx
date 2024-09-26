@@ -37,11 +37,10 @@ function StudentDashboard() {
         <StudentSideBar onTabChange = {handleTabChange}/>
       </div>
       <div className="student-cntr">
-        <Student_intro/>
-        <Student_Data_View rank_of_student='1'/>
+        {renderActiveTab()}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StudentDashboard
+export default StudentDashboard;

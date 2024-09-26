@@ -2,6 +2,12 @@ import React from 'react';
 import '../Stylesheets/AdminNavbar.css';
 
 const FacultySideBar = ({ onTabChange }) => {
+
+  const LogOut = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-content">
@@ -27,12 +33,10 @@ const FacultySideBar = ({ onTabChange }) => {
           <div className="nav-item" onClick={() => onTabChange('myStudents')}>
             My Students
           </div>
+          <div className="nav-item" onClick={()=>LogOut()}>
+            Logout
+          </div>
         </nav>
-        <div className="logout">
-          <button className="logout-button">
-            <i className="fas fa-sign-out-alt"></i> Logout
-          </button>
-        </div>
       </div>
     </div>
   );

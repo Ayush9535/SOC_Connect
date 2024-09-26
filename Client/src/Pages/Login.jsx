@@ -75,11 +75,15 @@ const Login = () => {
       toast.warn('Please enter your email first.', { position: "top-center" });
       return;
     }
+    if (!userRole) {
+      toast.warn('Please enter your role first.', { position: "top-center" });
+      return;
+    }
 
     let note = toast.loading("Sending OTP...", { position: "top-center" });
 
     try {
-      const response = await axios.post('http://localhost:3000/forgotpassword', { email });
+      const response = await axios.post('http://localhost:3000/forgotpassword', { email, userRole });
 
       if (response.data.code) {
         toast.update(note, {

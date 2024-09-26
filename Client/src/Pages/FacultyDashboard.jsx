@@ -8,14 +8,12 @@ import Faculty_View from '../Components/FacultyOverview';
 import Faculty_Intro from '../Components/FacultyIntro';
 
 const FacultyDashboard = () => {
-  const [activeTab, setActiveTab] = useState('facultyhome'); // Default active tab
+  const [activeTab, setActiveTab] = useState('facultyhome');
 
-  // Function to handle tab change
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-  // Function to render components based on active tab
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'facultyhome':
@@ -27,15 +25,15 @@ const FacultyDashboard = () => {
           </div>
         );
       case 'personalDetails':
-        return <FacultyPersonalDetails />; // Display personal details
+        return <FacultyPersonalDetails />; 
       case 'coursesTaught':
-        return <CoursesTaughtComponent />; // Replace with the actual component for courses taught
+        return <CoursesTaughtComponent />; 
       case 'academicInformation':
-        return <AcademicInformationComponent />; // Replace with the actual component for academic information
+        return <AcademicInformationComponent />; 
       case 'myStudents':
-        return <MyStudentsComponent />; // Replace with the actual component for my students
+        return <MyStudentsComponent />; 
       default:
-        return <Student_intro />; // Default to student intro if no match
+        return <Student_intro />;
     }
   };
   
