@@ -4,7 +4,7 @@ import Student_Data_View from '../Components/Student_Overview'
 import Student_intro from '../Components/Student_intro'
 import StudentPersonalDetails from '../Components/StudentPersonalDetails'
 import { useState } from 'react'
-import "../Stylesheets/StudentDashbord.css"
+import '../Stylesheets/StudentDashbord.css'
 
 function StudentDashboard() {
   const [activeTab, setActiveTab] = useState('studenthome')

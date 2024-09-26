@@ -25,7 +25,7 @@ const Faculty_View = (props) => {
           <div className="overview_boxes attendance">
             <FaCalendarAlt />
           </div>
-          <div className="attendance_text">Annual Calendar</div>
+          <div className="attendance_text">Holidays</div>
         </div>
 
         <div className="student_achievements">
