@@ -1,23 +1,24 @@
 const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    role: { type: String, default: 'student' },
 
     personalInfo: {
-        phone: { type: String, required: true },
-        address: { type: String, required: true },
-        dateOfBirth: { type: Date, required: true },
-        fathersName: { type: String, required: true },
-        mothersName: { type: String, required: true },
-        aadharNumber: { type: String, required: true, unique: true },
-        emergencyContact: { type: String, required: true },
-        bloodGroup: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], required: true },
+        phone: { type: String },
+        address: { type: String },
+        dateOfBirth: { type: Date },
+        fathersName: { type: String },
+        mothersName: { type: String },
+        aadharNumber: { type: String},
+        emergencyContact: { type: String },
+        bloodGroup: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] },
     },
 
     academicInfo: {
-        department: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true }, // Link to department
+        department: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' }, // Link to department
         courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }], // Array of course references
         gpa: { type: Number, default: 0.0 }
     },
