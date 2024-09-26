@@ -10,6 +10,7 @@ const cors = require("cors")
 const { AssignmentModel } = require("./Model/Assignments.js");
 const {FacultyModel} = require("./Model/Faculties.js");
 const {AdminModel} = require("./Model/Admin.js");
+const {Holiday} = require("./Model/Holiday.js")
 
 const app = express()
 app.use(cors())
@@ -37,7 +38,10 @@ app.post("/login", async (req, res) => {
         userModel = StudentModel;
     } else if (userRole == 'faculty') {
         userModel = FacultyModel;
-    } else {
+    } 
+    else if(userRole == 'admin'){
+        userModel = AdminModel;
+    }else {
         return res.status(400).send("Invalid user role specified");
     }
 
@@ -234,6 +238,17 @@ app.put('/faculty/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
+
+app.post('/addholiday', async (req, res) => {
+    const { date, day, description } = req.body;
+    try {
+      const newHoliday = new Holiday({ date, day, description });
+      await newHoliday.save();
+      res.status(201).json(newHoliday);
+    } catch (err) {
+      res.status(500).json({ message: 'Error adding holiday', error: err });
+    }
+  });
 
 app.listen(3000 , ()=>{
     console.log("Server is running on port 3000")
