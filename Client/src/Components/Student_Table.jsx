@@ -23,7 +23,7 @@ const FacultyDetailsTable = ({ data }) => {
     };
 
     const handleSaveClick = async () => {
-        console.log("Saving data:", editedData , data);
+        console.log("Saving data:", editedData);
         // try {
         //     const token = localStorage.getItem('token'); 
         //     if (!token) {

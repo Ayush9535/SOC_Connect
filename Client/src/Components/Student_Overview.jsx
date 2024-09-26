@@ -1,5 +1,9 @@
 import React from "react";
 import "../Stylesheets/Student_Overview.css";
+import { LiaNotesMedicalSolid } from "react-icons/lia";
+import { FaBook } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { GrDocumentPerformance } from "react-icons/gr";
 
 const Student_Data_View = (props) => {
   return (
@@ -7,25 +11,25 @@ const Student_Data_View = (props) => {
       <div className="overview">
         <div className="rank">
           <div className="overview_boxes student_rank">
-            {props.rank_of_student}
+            <LiaNotesMedicalSolid/>
           </div>
-          <div className="rank_text">Class Rank</div>
+          <div className="rank_text">View Assignments</div>
         </div>
         <div className="student_attendance">
           <div className="overview_boxes attendance">
-            {props.attendance_of_student}
+           <FaBook/>
           </div>
           <div className="attendance_text">Attendance</div>
         </div>
         <div className="student_achievements">
           <div className="overview_boxes achievements">
-            {props.achievement_of_student}
+            <FaCalendarAlt/>
           </div>
-          <div className="achievement_text">Achievements</div>
+          <div className="achievement_text">Holidays</div>
         </div>
         <div className="student_performance">
           <div className="overview_boxes performance">
-            {props.performance_of_student}
+            <GrDocumentPerformance/>
           </div>
           <div className="performance_text">
             Performance

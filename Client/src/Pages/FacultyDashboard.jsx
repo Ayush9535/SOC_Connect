@@ -4,35 +4,36 @@ import Student_Data_View from '../Components/Student_Overview';
 import Student_intro from '../Components/Student_intro';
 import FacultyPersonalDetails from '../Components/FacultyPersonalDetails';
 import "../Stylesheets/FacultyDasboard.css";
+import Faculty_View from '../Components/FacultyOverview';
+import Faculty_Intro from '../Components/FacultyIntro';
 
 const FacultyDashboard = () => {
-  const [activeTab, setActiveTab] = useState('facultyhome'); // Default active tab
+  const [activeTab, setActiveTab] = useState('facultyhome');
 
-  // Function to handle tab change
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-  // Function to render components based on active tab
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'facultyhome':
         return (
           <div>
-            <Student_intro /> {/* Display student intro */}
-            <Student_Data_View rank_of_student='1' />  {/* Display student overview */}
+             {/* Display student intro */}
+             <Faculty_Intro/>
+            <Faculty_View rank_of_student='1' />  {/* Display student overview */}
           </div>
         );
       case 'personalDetails':
-        return <FacultyPersonalDetails />; // Display personal details
+        return <FacultyPersonalDetails />; 
       case 'coursesTaught':
-        return <CoursesTaughtComponent />; // Replace with the actual component for courses taught
+        return <CoursesTaughtComponent />; 
       case 'academicInformation':
-        return <AcademicInformationComponent />; // Replace with the actual component for academic information
+        return <AcademicInformationComponent />; 
       case 'myStudents':
-        return <MyStudentsComponent />; // Replace with the actual component for my students
+        return <MyStudentsComponent />; 
       default:
-        return <Student_intro />; // Default to student intro if no match
+        return <Student_intro />;
     }
   };
   
