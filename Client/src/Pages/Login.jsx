@@ -32,9 +32,8 @@ const Login = () => {
           hideProgressBar: true,
           theme: "colored"
         });
-
         localStorage.setItem('token', response.data.token);
-
+        console.log(response.data.user)
         setTimeout(() => {
           if(response.data.user.role === 'student') {
             navigate('/studentdash');

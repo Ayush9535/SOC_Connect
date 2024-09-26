@@ -5,13 +5,15 @@ const studentSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, default: 'student' },
+
     personalInfo: {
         phone: { type: String },
         address: { type: String },
-        dateOfBirth: { type: Date,  },
+        dateOfBirth: { type: Date },
         fathersName: { type: String },
         mothersName: { type: String },
-        aadharNumber: { type: String, unique: true },
+        aadharNumber: { type: String},
+
         emergencyContact: { type: String },
         bloodGroup: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] },
     },

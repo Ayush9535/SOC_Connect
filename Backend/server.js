@@ -36,7 +36,7 @@ app.get("/users" , async (req,res)=>{
 
 app.post("/login", async (req, res) => {
     let { email, password } = req.body
-    let user = await userModel.findOne({ email: email })
+    let user = await StudentModel.findOne({ email: email })
     
     if (user) {
         const isMatch = await bcrypt.compare(password, user.password)
