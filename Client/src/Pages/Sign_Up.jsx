@@ -40,7 +40,7 @@ const SignUp = () => {
         });
 
         setTimeout(() => {
-          navigate('/login');
+          navigate('/');
         })
       }
 
@@ -145,7 +145,7 @@ const SignUp = () => {
                 </select>
               </div>
               <div className="login_button">
-              <button class="button-3" role="button" type='submit'>Login</button>
+              <button class="button-3" role="button" type='submit'>Register</button>
               </div>
 
               <p className='navi'>Already have an account ? <span onClick={()=>navigate("/")}>GO to Login</span></p>
