@@ -272,6 +272,16 @@ app.get("/assignments", async (req, res) => {
     }
 });
 
+app.post('/addholiday', async (req, res) => {
+    const { date, day, description } = req.body;
+    try {
+      const newHoliday = new Holiday({ date, day, description });
+      await newHoliday.save();
+      res.status(201).json(newHoliday);
+    } catch (err) {
+      res.status(500).json({ message: 'Error adding holiday', error: err });
+    }
+  });
 
 app.put("/assignments/:id", async (req, res) => {
     try {

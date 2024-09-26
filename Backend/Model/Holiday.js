@@ -6,5 +6,5 @@ const holidaySchema = new mongoose.Schema({
   description: { type: String, required: true }
 });
 
-const Holiday = mongoose.model('Holiday', holidaySchema);
+const Holiday = mongoose.model('holidays', holidaySchema);
 module.exports = {Holiday};
