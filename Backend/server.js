@@ -29,24 +29,18 @@ app.get("/" , (req,res)=>{
     res.send(mongoose.connection.readyState == 1? "Connected to Database" : "Not Connected to DataBase")
 })
 
-app.get("/users" , async (req,res)=>{
-    let users = await userModel.find({})
-    res.send(users)
-})
 
 app.post("/login", async (req, res) => {
     let { email, password, userRole } = req.body
-
-    if (userRole === 'student') {
+    if (userRole == 'student') {
         userModel = StudentModel;
-    } else if (userRole === 'faculty') {
+    } else if (userRole == 'faculty') {
         userModel = FacultyModel;
     } else {
         return res.status(400).send("Invalid user role specified");
     }
 
     let user = await userModel.findOne({ email: email })
-    
     if (user) {
         const isMatch = await bcrypt.compare(password, user.password)
         if (isMatch) {
@@ -65,7 +59,6 @@ app.post("/register", async (req, res) => {
     console.log(req.body);
     let { email, password, role, name, personalInfo, academicInfo } = req.body;
 
-    // Check if user already exists in either Student or Faculty collection based on role
     let user;
     if (role === 'student') {
         user = await StudentModel.findOne({ email: email });
@@ -114,6 +107,14 @@ app.post("/register", async (req, res) => {
 
 app.post("/forgotpassword" , async (req , res)=>{
     let email = req.body.email
+    let userRole = req.body.userRole
+
+    if (userRole === 'student') {
+        userModel = StudentModel;
+    } else if (userRole === 'faculty') {
+        userModel = FacultyModel;
+    }
+
     let user = await userModel.findOne({email : email})
     console.log(user)
     if (user){
