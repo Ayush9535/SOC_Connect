@@ -14,6 +14,20 @@
                     "address":"xyz",
                     "dob":"06/02/2006"
                 }
+            ],
+            "department":"CSE",
+            "academicinfo":[
+                {
+                    "courses":[],
+                    "CGPA":[]
+                }
+            ],
+            "alumnidetails":"",
+            "facultydetails":[
+                {
+                    "coursestaught":[],
+                    "activecourses":[]
+                }
             ]
         }
     ]
