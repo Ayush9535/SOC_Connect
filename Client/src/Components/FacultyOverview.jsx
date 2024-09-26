@@ -1,11 +1,11 @@
 import React from "react";
 import "../Stylesheets/Student_Overview.css";
 import { LiaNotesMedicalSolid } from "react-icons/lia";
-import { FaBook } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
-import { GrDocumentPerformance } from "react-icons/gr";
+import { CiMail } from "react-icons/ci";
+import { CiViewList } from "react-icons/ci";
 
-const Student_Data_View = (props) => {
+const Faculty_View = (props) => {
   return (
     <>
       <div className="overview">
@@ -13,26 +13,26 @@ const Student_Data_View = (props) => {
           <div className="overview_boxes student_rank">
             <LiaNotesMedicalSolid/>
           </div>
-          <div className="rank_text">View Assignments</div>
+          <div className="rank_text">Create Assignment</div>
         </div>
         <div className="student_attendance">
           <div className="overview_boxes attendance">
-           <FaBook/>
+            <FaCalendarAlt/>
           </div>
-          <div className="attendance_text">Attendance</div>
+          <div className="attendance_text">Annual Calendar</div>
         </div>
         <div className="student_achievements">
           <div className="overview_boxes achievements">
-            <FaCalendarAlt/>
+            <CiMail/>
           </div>
-          <div className="achievement_text">Calendar</div>
+          <div className="achievement_text">Apply for Leave</div>
         </div>
         <div className="student_performance">
           <div className="overview_boxes performance">
-            <GrDocumentPerformance/>
+            <CiViewList/>
           </div>
           <div className="performance_text">
-            Performance
+            Class List
           </div>
         </div>
       </div>
@@ -40,4 +40,4 @@ const Student_Data_View = (props) => {
   );
 };
 
-export default Student_Data_View;
+export default Faculty_View;
