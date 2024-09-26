@@ -73,7 +73,6 @@ app.post("/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         if (role === 'student') {
-            // Register as Student
             await StudentModel.create({
                 name: name,
                 email: email,
@@ -83,7 +82,6 @@ app.post("/register", async (req, res) => {
                 role: role
             });
         } else if (role === 'faculty') {
-            // Register as Faculty
             await FacultyModel.create({
                 name: name,
                 email: email,

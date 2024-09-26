@@ -5,6 +5,7 @@ import SignUp from './Pages/Sign_Up'
 import AdminDashboard from './Pages/AdminDashboard'
 import StudentDashboard from './Pages/StudentDashboard'
 import AlumniDashboard from './Pages/AlumniDashboard'
+import FacultyDashboard from './Pages/FacultyDashboard'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path='/admindash' element={<AdminDashboard/>}></Route>
         <Route path='/alumnidash' element={<AlumniDashboard/>}></Route>
         <Route path='/studentdash' element={<StudentDashboard/>}></Route>
+        <Route path='/facultydash' element={<FacultyDashboard/>}></Route>
     </Routes>
   )
 }
