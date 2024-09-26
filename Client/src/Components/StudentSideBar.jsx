@@ -28,6 +28,7 @@ const StudentSideBar = () => {
                     <i className="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
+            
         </div>
     </div>
   )
