@@ -2,7 +2,7 @@ import React from 'react'
 import '../Stylesheets/AdminNavbar.css'
 import { Link } from 'react-router-dom'
 
-const AdminSideBar = () => {
+const FacultySideBar = () => {
   return (
       <div className="sidebar">
         <div className="sidebar-content">
@@ -39,4 +39,4 @@ const AdminSideBar = () => {
   )
 }
 
-export default AdminSideBar
+export default FacultySideBar
