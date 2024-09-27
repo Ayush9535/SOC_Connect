@@ -51,7 +51,7 @@ const ViewAssignments = () => {
       {assignments.length === 0 ? (
         <p>No assignments found.</p>
       ) : (
-        <table>
+        <table style={{width:"900px"}}>
           <thead>
             <tr style={{backgroundColor:"#6C48C5"}}>
               <th>Title</th>
@@ -70,7 +70,7 @@ const ViewAssignments = () => {
                 <td>{assignment.status}</td>
                 <td>
                   {assignment.status === 'Pending' && (
-                    <button onClick={() => markAsDone(assignment._id)}>
+                    <button onClick={() => markAsDone(assignment._id)} style={{backgroundColor:"#6c48c5", color:"white", border:"none", padding:"5px"}}>
                       Mark as Done
                     </button>
                   )}
