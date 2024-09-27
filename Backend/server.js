@@ -50,7 +50,7 @@ app.post("/login", async (req, res) => {
     if (user) {
         const isMatch = await bcrypt.compare(password, user.password)
         if (isMatch) {
-            const token = jwt.sign({ email: user.email, role: user.role }, process.env.SECRETKEY)
+            const token = jwt.sign({ email: user.email, role: user.role}, process.env.SECRETKEY)
             res.json({ message: "Login successful", token, user })
         } else {
             res.status(401).send("Wrong password")
@@ -222,23 +222,38 @@ app.get('/getfaculties/:email' , async (req,res)=>{
     }
 })
 
-app.put('/faculty/:id', async (req, res) => {
-    const { id } = req.params;
-    const updatedData = req.body;
+app.put("/faculty/:facultyId", async (req, res) => {
+    const facultyId = req.params.facultyId;
+    const updateData = req.body;
 
     try {
-        const updatedFaculty = await FacultyModel.findByIdAndUpdate(id, updatedData, { new: true, runValidators: true });
+        // Find the faculty by email and update nested fields
+        const updatedFaculty = await FacultyModel.findOneAndUpdate(
+            { email: facultyId },
+            { 
+                $set: {
+                    'name': updateData.name,
+                    'email': updateData.email,
+                    'personalInfo.phone': updateData.personalInfo.phone,
+                    'personalInfo.address': updateData.personalInfo.address,
+                    'personalInfo.dateOfBirth': updateData.personalInfo.dateOfBirth,
+                    'personalInfo.aadharNumber': updateData.personalInfo.aadharNumber,
+                    'personalInfo.emergencyContact': updateData.personalInfo.emergencyContact,
+                    'personalInfo.bloodGroup': updateData.personalInfo.bloodGroup,
+                    'academicInfo.department.name': updateData.academicInfo.department.name,
+                    'academicInfo.department.head': updateData.academicInfo.department.head,
+                    'academicInfo.courses': updateData.academicInfo.courses,
+                }
+            },
+            { new: true }
+        );
 
-        if (!updatedFaculty) {
-            return res.status(404).json({ message: 'Faculty not found' });
-        }
-
-        res.status(200).json({ message: 'Faculty updated successfully', data: updatedFaculty });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error', error: error.message });
+        res.json(updatedFaculty);
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating faculty data', error: err });
     }
 });
+
 
 
 app.post("/assignment/:facultyId" , async (req,res)=>{

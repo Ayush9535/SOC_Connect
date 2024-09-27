@@ -5,6 +5,7 @@
     margin: 16px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 500px;
 }
 
 .assignment-title {
@@ -14,7 +15,9 @@
 }
 
 .assignment-list{
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0px;
 }
 
 .assignment-description {

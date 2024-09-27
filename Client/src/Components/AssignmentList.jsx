@@ -23,14 +23,17 @@ const AssignmentList = () => {
         fetchAssignments();
     }, []);
 
-    return (<>
-        <h2>All Assignments</h2>
+    return (<div style={{
+        marginLeft:"10%",
+        textAlign:"left",
+    }}>
+        <h2 style={{marginLeft:"20px"}}>All Assignments</h2>
         <div className="assignment-list">
             {assignments.map((assignment) => {
                 return <AssignmentCard key={assignment._id} assignment={assignment} />;
             })}
         </div>
-    </>
+    </div>
     );
 };
 

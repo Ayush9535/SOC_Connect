@@ -13,7 +13,7 @@ const Faculty_Intro = (props) => {
           </div>
           <div className="lower">
             <div className="welcome_text">
-              Welcome back,<span className="student_name">Rohit</span>
+              Welcome back,<span className="student_name">User</span>
             </div>
             <div className="welcome_motivation">
               Always stay updated in you student portal
