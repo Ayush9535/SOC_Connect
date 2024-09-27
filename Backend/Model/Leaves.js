@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const leaveSchema = new mongoose.Schema({
     facultyId: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'faculties', 
+        ref: 'Faculties', 
         required: true 
     },
     leaveType: { 

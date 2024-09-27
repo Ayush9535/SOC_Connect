@@ -281,8 +281,8 @@ app.post('/addholiday', async (req, res) => {
       res.status(201).json(newHoliday);
     } catch (err) {
       res.status(500).json({ message: 'Error adding holiday', error: err });
-    }
-  });
+}
+});
 
 app.put("/assignments/:id", async (req, res) => {
     try {
@@ -362,6 +362,16 @@ app.post('/submitFeedback', async (req, res) => {
     } catch (error) {
         console.error('Error submitting feedback:', error);
         res.status(500).json({ message: 'Error submitting feedback', error: error.message });
+    }
+});
+
+app.get('/getleaves', async (req, res) => {
+    try {
+        const leaves = await LeaveModel.find().populate('facultyId');
+        res.json(leaves);
+    } catch (error) {
+        console.error('Error fetching leaves:', error);
+        res.status(500).json({ message: 'Error fetching leaves' });
     }
 });
 

@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Stylesheets/Student_Overview.css";
-import "../Stylesheets/holidaymodal.css"
+import "../Stylesheets/holidaymodal.css";
 import { FaCalendarAlt } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaBuildingColumns } from "react-icons/fa6";
-import axios from 'axios'; // Make sure axios is imported
+import axios from 'axios';
 
 const AdminView = () => {
   const [date, setDate] = useState('');
   const [day, setDay] = useState('');
   const [description, setDescription] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showLeavesModal, setShowLeavesModal] = useState(false); 
+  const [leaves, setLeaves] = useState([]);
 
   const handleAddHoliday = async () => {
     const newHoliday = { date, day, description };
@@ -26,6 +28,19 @@ const AdminView = () => {
       console.error('Error adding holiday', error);
     }
   };
+
+  useEffect(() => {
+    const fetchLeaves = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/getleaves');
+        console.log(response.data);
+        setLeaves(response.data);
+      } catch (error) {
+        console.error('Error fetching leaves', error);
+      }
+    };
+    fetchLeaves();
+  }, []);
 
   return (
     <>
@@ -51,15 +66,14 @@ const AdminView = () => {
           <div className="achievement_text">Manage Faculties</div>
         </div>
 
-        <div className="student_performance">
+        <div className="student_performance" onClick={() => setShowLeavesModal(true)}>
           <div className="overview_boxes performance">
             <FaBuildingColumns />
           </div>
-          <div className="performance_text">Manage Departments</div>
+          <div className="performance_text">Manage Leaves</div>
         </div>
       </div>
 
-      {/* Conditionally render the modal and the overlay */}
       {showModal && (
         <>
           <div className="modal-overlay" onClick={() => setShowModal(false)}></div>
@@ -87,6 +101,40 @@ const AdminView = () => {
 
             <button onClick={handleAddHoliday}>Submit</button>
             <button onClick={() => setShowModal(false)}>Close</button>
+          </div>
+        </>
+      )}
+
+      {showLeavesModal && (
+        <>
+          <div className="modal-overlay" onClick={() => setShowLeavesModal(false)}></div>
+          <div className="modal" style={{width:"800px"}}>
+            <h2>Leaves Overview</h2>
+            <table className="leave-table">
+              <thead>
+                <tr>
+                  <th>Faculty Name</th>
+                  <th>Leave Type</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leaves.map((leave) => {
+                  return <tr key={leave._id}>
+                    <td>{leave.facultyId?.email || "Unknown"}</td> 
+                    <td>{leave.leaveType}</td>
+                    <td>{new Date(leave.startDate).toLocaleDateString()}</td>
+                    <td>{new Date(leave.endDate).toLocaleDateString()}</td>
+                    <td>{leave.reason}</td>
+                    <td>{leave.status}</td>
+                  </tr>
+})}
+              </tbody>
+            </table>
+            <button onClick={() => setShowLeavesModal(false)}>Close</button>
           </div>
         </>
       )}
