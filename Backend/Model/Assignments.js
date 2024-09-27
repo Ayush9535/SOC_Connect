@@ -3,12 +3,10 @@ const mongoose = require("mongoose");
 const assignmentSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String },
-    subjectId: { type: mongoose.Schema.Types.ObjectId, ref: 'Subject', required: true },
-    facultyId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },  // Faculty who assigned the task
-    studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },  // The student to whom the assignment is assigned
+    subjectId: { type: String, required: true },
+    facultyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Faculties', required: true },  
     deadline: { type: Date, required: true },
-    status: { type: String, enum: ['Pending', 'Submitted'], default: 'Pending' },
-    submissionDate: { type: Date }
+    status: { type: String, enum: ['Pending', 'Completed'], default: 'Pending' }
 });
 
 const AssignmentModel = mongoose.model('assignments', assignmentSchema);

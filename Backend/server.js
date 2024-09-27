@@ -10,6 +10,8 @@ const cors = require("cors")
 const { AssignmentModel } = require("./Model/Assignments.js");
 const {FacultyModel} = require("./Model/Faculties.js");
 const {AdminModel} = require("./Model/Admin.js");
+const {Holiday} = require("./Model/Holiday.js")
+const {LeaveModel} = require("./Model/Leaves.js");
 
 const app = express()
 app.use(cors())
@@ -37,7 +39,10 @@ app.post("/login", async (req, res) => {
         userModel = StudentModel;
     } else if (userRole == 'faculty') {
         userModel = FacultyModel;
-    } else {
+    } 
+    else if(userRole == 'admin'){
+        userModel = AdminModel;
+    }else {
         return res.status(400).send("Invalid user role specified");
     }
 
@@ -232,6 +237,175 @@ app.put('/faculty/:id', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+
+app.post("/assignment/:facultyId" , async (req,res)=>{
+    let facultyId = req.params.facultyId
+    let {title , description , subjectId , deadline} = req.body
+
+    let user = await FacultyModel.find({email: facultyId})
+    console.log(user , title , description , subjectId , deadline)
+    try{
+        const assignment = await AssignmentModel.create({
+            title,
+            description,
+            subjectId,
+            facultyId: user[0]._id,
+            deadline
+        })
+        res.status(201).json(assignment)
+    }catch(err){
+        res.status(500).json({ message: 'Error creating assignment', error: err });
+    }
+})
+
+app.get("/assignments", async (req, res) => {
+    try {
+        const assignments = await AssignmentModel.find().populate('facultyId');
+        
+        res.status(200).json(assignments);
+    } catch (err) {
+        console.error("Error fetching assignments:", err);
+        
+        res.status(500).json({ message: "Error fetching assignments", error: err });
+    }
+});
+
+app.post('/addholiday', async (req, res) => {
+    const { date, day, description } = req.body;
+    try {
+      const newHoliday = new Holiday({ date, day, description });
+      await newHoliday.save();
+      res.status(201).json(newHoliday);
+    } catch (err) {
+      res.status(500).json({ message: 'Error adding holiday', error: err });
+}
+});
+
+app.put("/assignments/:id", async (req, res) => {
+    try {
+        const assignmentId = req.params.id;
+        const { status } = req.body;
+
+        const updatedAssignment = await AssignmentModel.findByIdAndUpdate(
+            assignmentId,
+            { status },
+            { new: true }
+        );
+
+        res.status(200).json(updatedAssignment);
+    } catch (err) {
+        console.error("Error updating assignment status:", err);
+        res.status(500).json({ message: "Error updating assignment status", error: err });
+    }
+});
+
+
+app.post('/apply-leave', async (req, res) => {
+    const { facultyId, leaveType, startDate, endDate, reason } = req.body;
+
+    if (!facultyId || !leaveType || !startDate || !endDate || !reason) {
+        return res.status(400).json({ message: 'All fields are required.' });
+    }
+
+    let user = await FacultyModel.findOne({ email:facultyId });
+
+    try {
+        const leaveRequest = await LeaveModel.create({
+            facultyId: user._id,
+            leaveType,
+            startDate,
+            endDate,
+            reason
+        });
+        res.status(201).json(leaveRequest);
+    } catch (error) {
+        console.error('Error applying for leave:', error);
+        res.status(500).json({ message: 'Error applying for leave', error: error.message });
+    }
+});
+
+app.get('/getHolidays' , async (req,res)=>{
+    try{
+        const holidays = await Holiday.find({})
+        res.json(holidays)
+    }catch(err){
+        console.error('Error fetching holidays:', err);
+        res.status(500).json({ message: 'Error fetching holidays' });
+    }
+})
+
+app.get('/getStudents', async (req, res) => {
+    try {
+        const students = await StudentModel.find({});
+        res.json(students);
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        res.status(500).json({ message: 'Error fetching students' });
+    }
+});
+
+app.post('/submitFeedback', async (req, res) => {
+    const { studentId, feedback } = req.body;
+    try {
+        const student = await StudentModel.findById(studentId);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+        let user = await FacultyModel.findOne({ email:feedback.facultyId });
+
+        student.feedback.push({facultyId: user._id, feedback: feedback.message});
+        await student.save();
+        res.status(201).json({ message: 'Feedback submitted successfully' });
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+        res.status(500).json({ message: 'Error submitting feedback', error: error.message });
+    }
+});
+
+app.get('/getleaves', async (req, res) => {
+    try {
+        const leaves = await LeaveModel.find().populate('facultyId');
+        res.json(leaves);
+    } catch (error) {
+        console.error('Error fetching leaves:', error);
+        res.status(500).json({ message: 'Error fetching leaves' });
+    }
+});
+
+app.get('/feedbacks/:email', async (req, res) => {
+    const email = req.params.email;
+    try {
+        const student = await StudentModel.findOne({ email: email }).populate('feedback.facultyId');
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+        res.json(student.feedback);
+    } catch (error) {
+        console.error('Error fetching feedbacks:', error);
+        res.status(500).json({ message: 'Error fetching feedbacks' });
+    }
+}
+);
+
+app.get('/assignments/:facultyId', async (req, res) => {
+    const { facultyId } = req.params;
+
+    let user = await FacultyModel.findOne({ email:facultyId });
+
+    try {
+        const assignments = await AssignmentModel.find({ facultyId: user._id });
+
+        if (assignments.length === 0) {
+            return res.status(404).json({ message: 'No assignments found for this faculty.' });
+        }
+
+        res.status(200).json(assignments);
+    } catch (error) {
+        console.error('Error fetching assignments:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
 

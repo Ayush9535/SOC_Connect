@@ -10,18 +10,21 @@ const AdminSideBar = () => {
                 <div className="logo">
                     <img src='https://res.cloudinary.com/dzf8ewam7/image/upload/v1727342563/SOC-Connect/rl7tdycgpqeizptrpgrj.png' alt=""/>
                 </div>
-                <Link to="/admindash" className="nav-item">
-                    Personal Information
-                </Link>
-                <Link to="/students" className="nav-item">
-                    Manage Students
-                </Link>
-                <Link to="/departments" className="nav-item">
-                    Manage Departments
-                </Link>
-                <Link to="/courses" className="nav-item">
-                    Manage Courses
-                </Link>
+                <div className="nav-item" onClick={() => onTabChange('facultyhome')}>
+            Home
+          </div>
+          <div className="nav-item" onClick={() => onTabChange('personalDetails')}>
+            Manage Students
+          </div>
+          <div className="nav-item" onClick={() => onTabChange('coursesTaught')}>
+            Manage Faculties
+          </div>
+          <div className="nav-item" onClick={() => onTabChange('academicInformation')}>
+            Manage Holidays
+          </div>
+          <div className="nav-item" onClick={() => onTabChange('myStudents')}>
+            Create Announcements
+          </div>
             </nav>
             <div className="logout">
                 <button className="logout-button">

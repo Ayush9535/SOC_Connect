@@ -4,7 +4,9 @@ import Student_Data_View from '../Components/Student_Overview'
 import Student_intro from '../Components/Student_intro'
 import StudentPersonalDetails from '../Components/StudentPersonalDetails'
 import { useState } from 'react'
+import ViewAssignments from '../Components/ViewAssignments'
 import '../Stylesheets/StudentDashbord.css'
+import FeedbackCard from '../Components/FeedbackCard'
 
 function StudentDashboard() {
   const [activeTab, setActiveTab] = useState('studenthome')
@@ -26,8 +28,10 @@ function StudentDashboard() {
         return <CoursesTaughtComponent />; 
       case 'academicInformation':
         return <AcademicInformationComponent />; 
-      case 'myStudents':
-        return <MyStudentsComponent />; 
+      case 'feedbacks':
+        return <FeedbackCard />; 
+      case 'assignments':
+        return <ViewAssignments />; 
       default:
         return <Student_intro />;
     }
