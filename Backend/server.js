@@ -11,6 +11,7 @@ const { AssignmentModel } = require("./Model/Assignments.js");
 const {FacultyModel} = require("./Model/Faculties.js");
 const {AdminModel} = require("./Model/Admin.js");
 const {Holiday} = require("./Model/Holiday.js")
+const {LeaveModel} = require("./Model/Leaves.js");
 
 const app = express()
 app.use(cors())
@@ -302,8 +303,67 @@ app.put("/assignments/:id", async (req, res) => {
 });
 
 
+app.post('/apply-leave', async (req, res) => {
+    const { facultyId, leaveType, startDate, endDate, reason } = req.body;
 
+    if (!facultyId || !leaveType || !startDate || !endDate || !reason) {
+        return res.status(400).json({ message: 'All fields are required.' });
+    }
 
+    let user = await FacultyModel.findOne({ email:facultyId });
+
+    try {
+        const leaveRequest = await LeaveModel.create({
+            facultyId: user._id,
+            leaveType,
+            startDate,
+            endDate,
+            reason
+        });
+        res.status(201).json(leaveRequest);
+    } catch (error) {
+        console.error('Error applying for leave:', error);
+        res.status(500).json({ message: 'Error applying for leave', error: error.message });
+    }
+});
+
+app.get('/getHolidays' , async (req,res)=>{
+    try{
+        const holidays = await Holiday.find({})
+        res.json(holidays)
+    }catch(err){
+        console.error('Error fetching holidays:', err);
+        res.status(500).json({ message: 'Error fetching holidays' });
+    }
+})
+
+app.get('/getStudents', async (req, res) => {
+    try {
+        const students = await StudentModel.find({});
+        res.json(students);
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        res.status(500).json({ message: 'Error fetching students' });
+    }
+});
+
+app.post('/submitFeedback', async (req, res) => {
+    const { studentId, feedback } = req.body;
+    try {
+        const student = await StudentModel.findById(studentId);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+        let user = await FacultyModel.findOne({ email:feedback.facultyId });
+
+        student.feedback.push({facultyId: user._id, feedback: feedback.message});
+        await student.save();
+        res.status(201).json({ message: 'Feedback submitted successfully' });
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+        res.status(500).json({ message: 'Error submitting feedback', error: error.message });
+    }
+});
 
 app.listen(3000 , ()=>{
     console.log("Server is running on port 3000")

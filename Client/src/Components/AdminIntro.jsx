@@ -6,7 +6,7 @@ const AdminIntro = (props) => {
   const [loading, setLoading] = useState(true);
   return (
     <>
-      <div className="content">
+      <div className="content" style={{width:"70%"}}>
         <div className="left_side">
           <div className="upper">
             <div className="date">27 September 2024</div>

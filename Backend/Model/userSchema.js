@@ -12,25 +12,33 @@ const studentSchema = new mongoose.Schema({
         dateOfBirth: { type: Date },
         fathersName: { type: String },
         mothersName: { type: String },
-        aadharNumber: { type: String},
-
+        aadharNumber: { type: String },
         emergencyContact: { type: String },
         bloodGroup: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] },
     },
 
     academicInfo: {
-        department: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' }, // Link to department
-        courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }], // Array of course references
+        department: { name: String, head: String },
+        courses: [
+            {
+                name: { type: String },
+                code: { type: String }
+            }
+        ],
         gpa: { type: Number, default: 0.0 }
     },
 
     assignments: [{
-        assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' },
+        assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Assignments' },
         status: { type: String, enum: ['Submitted', 'Pending'], default: 'Pending' },
         grade: { type: String, default: null }
     }],
 
-    feedback: [{ type: String }] // Array of feedback messages
+    feedback: [{
+        facultyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Faculties' },
+        feedback: { type: String },
+        feedbackDate: { type: Date, default: Date.now }
+    }]
 });
 
 const StudentModel = mongoose.model("Student", studentSchema);
