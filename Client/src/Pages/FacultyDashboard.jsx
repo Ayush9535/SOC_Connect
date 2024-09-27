@@ -9,6 +9,7 @@ import CreateAssignment from '../Components/CreateAssignment';
 import Modal from 'react-modal'; 
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import AssignmentList from '../Components/AssignmentList';
 
 Modal.setAppElement('#root');
 
@@ -107,6 +108,8 @@ const FacultyDashboard = () => {
         );
       case 'personalDetails':
         return <FacultyPersonalDetails />;
+      case 'academicInformation':
+        return <AssignmentList />;
       case 'createassignment':
         return <CreateAssignment />;
       default:

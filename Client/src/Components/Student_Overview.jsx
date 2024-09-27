@@ -44,7 +44,7 @@ const Student_Data_View = (props) => {
   return (
     <>
       <div className="overview">
-        <div className="rank">
+        <div className="rank" onClick={()=>props.onTabChange()}>
           <div className="overview_boxes student_rank">
             <LiaNotesMedicalSolid />
           </div>

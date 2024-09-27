@@ -134,7 +134,7 @@ const Faculty_View = (props) => {
   return (
     <>
       <div className="overview">
-        <div className="rank">
+        <div className="rank" onClick={() => props.onTabChange('createassignment')}>
           <div className="overview_boxes student_rank">
             <LiaNotesMedicalSolid />
           </div>

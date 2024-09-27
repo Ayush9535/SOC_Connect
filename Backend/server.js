@@ -375,6 +375,40 @@ app.get('/getleaves', async (req, res) => {
     }
 });
 
+app.get('/feedbacks/:email', async (req, res) => {
+    const email = req.params.email;
+    try {
+        const student = await StudentModel.findOne({ email: email }).populate('feedback.facultyId');
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+        res.json(student.feedback);
+    } catch (error) {
+        console.error('Error fetching feedbacks:', error);
+        res.status(500).json({ message: 'Error fetching feedbacks' });
+    }
+}
+);
+
+app.get('/assignments/:facultyId', async (req, res) => {
+    const { facultyId } = req.params;
+
+    let user = await FacultyModel.findOne({ email:facultyId });
+
+    try {
+        const assignments = await AssignmentModel.find({ facultyId: user._id });
+
+        if (assignments.length === 0) {
+            return res.status(404).json({ message: 'No assignments found for this faculty.' });
+        }
+
+        res.status(200).json(assignments);
+    } catch (error) {
+        console.error('Error fetching assignments:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 app.listen(3000 , ()=>{
     console.log("Server is running on port 3000")
 })

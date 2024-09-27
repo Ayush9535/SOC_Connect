@@ -24,13 +24,10 @@ const FacultySideBar = ({ onTabChange }) => {
           <div className="nav-item" onClick={() => onTabChange('personalDetails')}>
             <i className="fas fa-user"></i> Personal Details
           </div>
-          <div className="nav-item" onClick={() => onTabChange('coursesTaught')}>
-            Courses Taught
-          </div>
           <div className="nav-item" onClick={() => onTabChange('academicInformation')}>
             Academic Information
           </div>
-          <div className="nav-item" onClick={() => onTabChange('myStudents')}>
+          <div className="nav-item" onClick={() => onTabChange('classList')}>
             My Students
           </div>
           <div className="nav-item" onClick={() => onTabChange('createassignment')}>
